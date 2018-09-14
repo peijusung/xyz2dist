@@ -45,6 +45,20 @@ Default -ts  = 1
                for Timestep = 1 and do computation.  
                If Timestep is not in xyz format, then the block of data  
                in xyz format will be computed
+ex:
+       0                                                         200
+       |---------------------------------------------------------|
+       0    1
+       <----> dz window
+
+       |--| shift by stride
+          <---->
+            dz window
+
+          |--| shift by stride
+             <---->
+               dz window
+                          ...
 
 example:
 python2 xyz2plt.py -in lammps_final.xyz -out lammps_final_dist.plt -m "test" -z 0,40 -dz 2 -s 0.1 -ts 2
