@@ -1,6 +1,6 @@
 #!/bin/env python
 #
-#   This script convert an xyz format to species distribution 
+#   This script converts an xyz format to species distribution 
 #   (depth vs number of particles) in plt format
 #   xyz format:
 #              <number of atoms>
@@ -10,11 +10,13 @@
 #
 # Jerry
 #
+import datetime
 import argparse
 import numpy as np
 from collections import defaultdict
-version="20180912"
 
+version="20181127"
+date=datetime.datetime.now()
 #
 # parser
 #
@@ -43,7 +45,7 @@ Default -s   = 0.1
 Default -ts  = 1
                If Timestep is specified in xyz format, the script will look 
                for Timestep = 1 and do computation.  
-               If Timestep is not in xyz format, then the block of data  
+               If Timestep is not in xyz format, then the first block of data  
                in xyz format will be computed
 ex:
        0                                                         200
@@ -208,7 +210,7 @@ for line_count, wk_line in enumerate(fin,1):
         z=float(wk_line[3])
 
 #
-#  use par_count-1 to match pytyhon list convension (starts at 0)
+#  use par_count-1 to match python list convention (starts at 0)
 #
         sp_array[par_count-1]=sp
         sp_count[sp] = sp_count[sp] + 1
@@ -240,6 +242,7 @@ if not ifind:
 # open output_file and write header
 #
 fout = open(output_file,'w')
+fout.write('# File is cretaed on :'+str(date)+' \n')
 fout.write('# convert from '+input_file+' to '+output_file+'\n')
 fout.write('# -m  = ' + output_file_message + '\n')
 fout.write('# -z  = ' + zRange + '\n')
@@ -304,4 +307,4 @@ print "min y position =",min(y_array),' A'
 print "max y position =",max(y_array),' A'     
 print "min z position =",min(z_array),' A'     
 print "max z position =",max(z_array),' A'     
-print "Challenge accomplished !! " 
+print "Challenge accomplished!! " 
